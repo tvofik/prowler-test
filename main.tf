@@ -17,11 +17,6 @@ resource "aws_iam_role" "prowler_role" {
         Principal = {
           AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/Abayomi"
         }
-        Condition = {
-          StringEquals = {
-            "sts:ExternalId" = "0000"
-          }
-        }
       }
     ]
   })
