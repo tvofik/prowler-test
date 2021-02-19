@@ -65,7 +65,7 @@ jobs:
       #     role-duration-seconds: 1200
       #     role-session-name: ProwlerSession
 
-      - name: GetCallerID-2
+      - name: GetCallerID-0
         run: |
           aws sts get-caller-identity
       - name: Sleep
