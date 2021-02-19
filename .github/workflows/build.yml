@@ -67,14 +67,14 @@ jobs:
 
       - name: Assume Role
         run: |
-          aws sts assume-role --role-arn ${{ secrets.PROWLER_AWS_ROLE_TO_ASSUME }} --role-session-name ProwlerSession
+          aws sts assume-role --role-arn ${{ secrets.AWS_ROLE_TO_ASSUME }} --role-session-name ProwlerSession
 
       - name: GetCallerID-0
         run: |
           aws sts get-caller-identity
-      - name: Sleep
-        run: |
-          sleep 4m
+      # - name: Sleep
+      #   run: |
+      #     sleep 4m
       # - name: Destroy Resource
       #   run: |
       #     terraform destroy --auto-approve
