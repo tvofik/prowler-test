@@ -26,10 +26,6 @@ jobs:
           pip install detect-secrets
           sudo apt install jq
 
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt -check
-        # continue-on-error: true
       - name: Terraform initialize
         id: init
         run: terraform init
