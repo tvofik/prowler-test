@@ -28,7 +28,8 @@ jobs:
       - name: Terraform initialize
         run: terraform init
 
-      - id: plan
+      - name: Terraform Plan & Apply
+        id: plan
         run: |
           terraform plan
           terraform apply --auto-approve
