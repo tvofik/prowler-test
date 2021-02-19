@@ -50,10 +50,6 @@ jobs:
           cd prowler
           ls -al
 
-      - name: Sleep
-        run: |
-          sleep 3m
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
