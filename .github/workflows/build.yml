@@ -50,6 +50,10 @@ jobs:
           cd prowler
           ls -al
 
+      - name: Sleep
+        run: |
+          sleep 3m
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -57,7 +61,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          # role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
+          role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
           role-duration-seconds: 1200
           role-session-name: ProwlerSession
 
@@ -66,7 +70,7 @@ jobs:
           aws sts get-caller-identity
       - name: Sleep
         run: |
-          sleep 7m
+          sleep 4m
       - name: Destroy Resource
         run: |
           terraform destroy --auto-approve
