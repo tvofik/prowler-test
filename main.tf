@@ -34,9 +34,14 @@ resource "aws_iam_role" "prowler_role" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/Abayomi"
         }
-      },
+        Condition = {
+          StringEquals = {
+            "sts:ExternalId" = "0000"
+          }
+        }
+      }
     ]
   })
 }
@@ -68,8 +73,8 @@ resource "aws_iam_role_policy" "prowler-additions-policy" {
           "support:Describe*",
           "tag:GetTagKeys"
         ]
-        Resource = "*",
-        Effect   = "Allow",
+        Resource = "*"
+        Effect   = "Allow"
         Sid      = "AllowMoreReadForProwler"
       }
     ]
