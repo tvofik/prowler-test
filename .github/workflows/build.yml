@@ -71,10 +71,6 @@ jobs:
       - name: Sleep
         run: |
           sleep 4m
-      - name: Destroy Resource
-        run: |
-          terraform destroy --auto-approve
-
-# prowleruser
-# accesskey: AKIA4SJQ3IE3OM5LGVZT
-# secretkey: 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
+      # - name: Destroy Resource
+      #   run: |
+      #     terraform destroy --auto-approve
