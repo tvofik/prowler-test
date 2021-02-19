@@ -1,5 +1,5 @@
 provider "aws" {
-  region  = "us-east-1"
+  region = "us-east-1"
 }
 # Get Account ID 
 data "aws_caller_identity" "current" {}
@@ -16,7 +16,7 @@ data "aws_caller_identity" "current" {}
 # resource "aws_instance" "foo" {
 #   ami           = data.aws_ami.amazonlinux2.id
 #   instance_type = "t2.micro"
-  
+
 #   tags = {
 #     Name = "Prowler-Instance"
 #   }
@@ -26,8 +26,6 @@ data "aws_caller_identity" "current" {}
 resource "aws_iam_role" "prowler_role" {
   name = "ProwlerRole"
 
-  # Terraform's "jsonencode" function converts a
-  # Terraform expression result to valid JSON syntax.
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -39,6 +37,64 @@ resource "aws_iam_role" "prowler_role" {
           AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
         }
       },
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "secuirty-policy-attach" {
+  role       = aws_iam_role.prowler_role.name
+  policy_arn = "arn:aws:iam::aws:policy/SecurityAudit"
+}
+resource "aws_iam_role_policy_attachment" "viewonly-policy-attach" {
+  role       = aws_iam_role.prowler_role.name
+  policy_arn = "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
+}
+
+
+// prowler-additions-policy
+resource "aws_iam_role_policy" "prowler-additions-policy" {
+  name = "ProwlerAdditionsPolicy"
+  role = aws_iam_role.prowler_role.name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "dax:ListTables",
+          "ds:ListAuthorizedApplications",
+          "ds:DescribeRoles",
+          "ec2:GetEbsEncryptionByDefault",
+          "ecr:Describe*",
+          "support:Describe*",
+          "tag:GetTagKeys"
+        ]
+        Resource = "*",
+        Effect   = "Allow",
+        Sid      = "AllowMoreReadForProwler"
+      }
+    ]
+  })
+}
+
+/*
+if you want porwler to send findings to AWS SECUIRTY HUB
+prowler-security-hub
+*/
+resource "aws_iam_role_policy" "prowler-security-policy" {
+  name = "ProwlerSecurityHubPolicy"
+  role = aws_iam_role.prowler_role.name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "securityhub:BatchImportFindings",
+          "securityhub:GetFindings"
+        ]
+        Effect   = "Allow",
+        Resource = "*"
+        Sid      = "AllowSecuirtyHubForProwler"
+      }
     ]
   })
 }

@@ -32,19 +32,19 @@ jobs:
       - name: Terraform Validate
         id: validate
         run: terraform validate
-      # - name: Terraform Plan & Apply
-      #   id: plan
-      #   run: |
-      #     terraform plan
-      #     terraform apply --auto-approve
+      - name: Terraform Plan & Apply
+        id: plan
+        run: |
+          terraform plan
+          terraform apply --auto-approve
       - name: Clone Prowler Repo
         run: |
           git clone https://github.com/toniblyx/prowler
           cd prowler
           ls -al
-      # - name: Sleep
-      #   run: |
-      #     sleep 3m
-      # - name: Destroy Resource
-      #   run: |
-      #     terraform destroy --auto-approve
+      - name: Sleep
+        run: |
+          sleep 7m
+      - name: Destroy Resource
+        run: |
+          terraform destroy --auto-approve
