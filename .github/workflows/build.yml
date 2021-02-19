@@ -34,15 +34,18 @@ jobs:
           terraform plan
           terraform apply --auto-approve
 
-  postdeploy:
-    name: Post Deploy
-    runs-on: ubuntu-latest
-    needs: deploy
-    steps:
+      - name: list files
+        run: |
+          ls -al
+
       - name: Sleep
         run: |
-          sleep 6m
+          sleep 3m
 
       - name: Destroy Resource
         run: |
           terraform destroy --auto-approve
+  # postdeploy:
+  #   name: Post Deploy
+  #   runs-on: ubuntu-latest
+  #   needs: deploy
