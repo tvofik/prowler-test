@@ -22,23 +22,30 @@ jobs:
           aws-region: us-east-1
 
       - name: Install Requirements
-        id: pip
-        run: pip install detect-secrets
-      # - name: Terraform fmt
-      #   id: fmt
-      #   run: terraform fmt -check
-      #   # continue-on-error: true
-      # - name: Terraform initialize
-      #   id: init
-      #   run: terraform init
-      # - name: Terraform Validate
-      #   id: validate
-      #   run: terraform validate
+        run: |
+          pip install detect-secrets
+          sudo apt install jq
+
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        # continue-on-error: true
+      - name: Terraform initialize
+        id: init
+        run: terraform init
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
       # - name: Terraform Plan & Apply
       #   id: plan
       #   run: |
       #     terraform plan
       #     terraform apply --auto-approve
+      - name: Clone Prowler Repo
+        run: |
+          git clone https://github.com/toniblyx/prowler
+          cd prowler
+          ls -al
       # - name: Sleep
       #   run: |
       #     sleep 3m
