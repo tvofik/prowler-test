@@ -21,7 +21,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Install Requirements
+      - name: GetCallerID-1
         run: |
           aws sts get-caller-identity
 
@@ -41,22 +41,29 @@ jobs:
         run: |
           terraform plan
           terraform apply --auto-approve
+
       - name: Clone Prowler Repo
+        run: git clone https://github.com/toniblyx/prowler
+
+      - name: Change Directory
         run: |
-          git clone https://github.com/toniblyx/prowler
           cd prowler
           ls -al
 
-      # - name: Configure AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-1
-      #     role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-      #     role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
-      #     role-duration-seconds: 1200
-      #     role-session-name: MySessionName
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
+          role-duration-seconds: 1200
+          role-session-name: ProwlerSession
+
+      - name: GetCallerID-2
+        run: |
+          aws sts get-caller-identity
       - name: Sleep
         run: |
           sleep 7m
