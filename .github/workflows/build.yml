@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   deploy:
-    name: Testing
+    name: Prowler
     runs-on: ubuntu-latest
 
     steps:
@@ -21,4 +21,14 @@ jobs:
       - name: Get AWS Version
         run: |
           aws --version
-          aws sts get-caller-identity
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform initialize
+        run: terraform init
+
+      - id: plan
+        run: |
+        terraform plan -no-color
+        terraform plan
