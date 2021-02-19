@@ -68,6 +68,5 @@ jobs:
         run: |
           sleep 7m
       - name: Destroy Resource
-        if: ${{ <expression> }}
         run: |
           terraform destroy --auto-approve
