@@ -26,17 +26,21 @@ jobs:
           pip install detect-secrets
           sudo apt install jq
 
-      - name: Terraform initialize
-        id: init
-        run: terraform init
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate
-      - name: Terraform Plan & Apply
-        id: plan
-        run: |
-          terraform plan
-          terraform apply --auto-approve
+      # - name: Terraform initialize
+      #   id: init
+      #   run: terraform init
+      # - name: Terraform Validate
+      #   id: validate
+      #   run: terraform validate
+      # - name: Terraform Plan & Apply
+      #   id: plan
+      #   run: |
+      #     terraform plan
+      #     terraform apply --auto-approve
+
+      # - name: Sleep
+      #   run: |
+      #     sleep 2m
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -61,9 +65,6 @@ jobs:
       # - name: GetCallerID-0
       #   run: |
       #     aws sts get-caller-identity
-      # - name: Sleep
-      #   run: |
-      #     sleep 4m
       # - name: Destroy Resource
       #   run: |
       #     terraform destroy --auto-approve
