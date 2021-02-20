@@ -28,26 +28,34 @@ jobs:
       #     template: myStack.yaml
       #     parameter-overrides: "MyParam1=myValue,MyParam2=${{ secrets.MY_SECRET_VALUE }}"
 
-      # - name: Install Requirements
-      #   run: |
-      #     pip install detect-secrets
-      #     sudo apt install jq
-
-      # - name: Terraform initialize
-      #   id: init
-      #   run: terraform init
-      # - name: Terraform Validate
-      #   id: validate
-      #   run: terraform validate
-      # - name: Terraform Plan & Apply
-      #   id: plan
-      #   run: |
-      #     terraform plan
-      #     terraform apply --auto-approve
-
-      - name: Assume Role
+      - name: Install Requirements
         run: |
-          aws sts assume-role --role-arn ${{ secrets.AWS_ROLE_TO_ASSUME }} --role-session-name ProwlerSession
+          pip install detect-secrets
+          sudo apt install jq
+
+      - name: Terraform initialize
+        id: init
+        run: terraform init
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
+      - name: Terraform Plan & Apply
+        id: plan
+        run: |
+          terraform plan
+          terraform apply --auto-approve
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-session-name: ProwlerSession
+      # - name: Assume Role
+      #   run: |
+      #     aws sts assume-role --role-arn ${{ secrets.AWS_ROLE_TO_ASSUME }} --role-session-name ProwlerSession
       # - name: Clone Prowler Repo
       #   run: git clone https://github.com/toniblyx/prowler
       # - name: Change Directory
@@ -57,12 +65,6 @@ jobs:
       # - name: Assume Role
       #   run: |
       #     aws sts assume-role --role-arn ${{ secrets.AWS_ROLE_TO_ASSUME }} --role-session-name ProwlerSession
-      # - name: Configure AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-1
       # - name: GetCallerID-0
       #   run: |
       #     aws sts get-caller-identity
