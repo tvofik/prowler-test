@@ -31,7 +31,7 @@ jobs:
         with:
           name: RoleStack
           template: role.yaml
-          capabilities: [CAPABILITY_NAMED_IAM]
+          capabilities: CAPABILITY_NAMED_IAM
           # parameter-overrides: "MyParam1=myValue,MyParam2=${{ secrets.MY_SECRET_VALUE }}"
 
       # - name: Terraform initialize
