@@ -15,9 +15,13 @@ resource "aws_iam_role" "prowler_role" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/Abayomi"
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
         }
-        Condition = {}
+        Condition = {
+          StringLike = {
+            "aws:PrincipalArn" = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/Abayomi"
+          }
+        }
       }
     ]
   })
@@ -42,11 +46,25 @@ resource "aws_iam_role_policy" "prowler-additions-policy" {
     Statement = [
       {
         Action = [
+          "access-analyzer:List*",
+          "apigateway:Get*",
+          "apigatewayv2:Get*",
+          "aws-marketplace:ViewSubscriptions",
           "dax:ListTables",
           "ds:ListAuthorizedApplications",
           "ds:DescribeRoles",
           "ec2:GetEbsEncryptionByDefault",
           "ecr:Describe*",
+          "lambda:GetAccountSettings",
+          "lambda:GetFunctionConfiguration",
+          "lambda:GetLayerVersionPolicy",
+          "lambda:GetPolicy",
+          "opsworks-cm:Describe*",
+          "opsworks:Describe*",
+          "secretsmanager:ListSecretVersionIds",
+          "sns:List*",
+          "sqs:ListQueueTags",
+          "states:ListActivities",
           "support:Describe*",
           "tag:GetTagKeys"
         ]
