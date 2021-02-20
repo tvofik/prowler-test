@@ -21,22 +21,29 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      # - name: Deploy to AWS CloudFormation
+      #   uses: aws-actions/aws-cloudformation-github-deploy@v1
+      #   with:
+      #     name: MyStack
+      #     template: myStack.yaml
+      #     parameter-overrides: "MyParam1=myValue,MyParam2=${{ secrets.MY_SECRET_VALUE }}"
+
       # - name: Install Requirements
       #   run: |
       #     pip install detect-secrets
       #     sudo apt install jq
 
-      - name: Terraform initialize
-        id: init
-        run: terraform init
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate
-      - name: Terraform Plan & Apply
-        id: plan
-        run: |
-          terraform plan
-          terraform apply --auto-approve
+      # - name: Terraform initialize
+      #   id: init
+      #   run: terraform init
+      # - name: Terraform Validate
+      #   id: validate
+      #   run: terraform validate
+      # - name: Terraform Plan & Apply
+      #   id: plan
+      #   run: |
+      #     terraform plan
+      #     terraform apply --auto-approve
 
       - name: Assume Role
         run: |
