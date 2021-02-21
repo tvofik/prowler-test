@@ -61,7 +61,7 @@ jobs:
       # role-session-name: ProwlerSession
       - name: Assume Role
         run: |
-          aws sts assume-role --role-arn ProwlerXA-Role
+          aws sts assume-role --role-arn ProwlerXA-Role --role-session-name prowler
       # - name: Clone Prowler Repo
       #   run: git clone https://github.com/toniblyx/prowler
       # - name: Change Directory
