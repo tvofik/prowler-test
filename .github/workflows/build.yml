@@ -58,7 +58,7 @@ jobs:
           aws-region: us-east-1
           role-to-assume: ProwlerXA-Role
           # role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          role-session-name: ProwlerSession
+#           role-session-name: ProwlerSession
       # - name: Assume Role
       #   run: |
       #     aws sts assume-role --role-arn ${{ secrets.AWS_ROLE_TO_ASSUME }} --role-session-name ProwlerSession
