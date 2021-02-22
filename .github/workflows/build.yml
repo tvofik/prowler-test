@@ -21,7 +21,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: GetCallerID-0
+      - name: ID-0
         run: |
           aws sts get-caller-identity
 
@@ -60,7 +60,7 @@ jobs:
           role-to-assume: Prowler-Role
           role-session-name: ProwlerSession
 
-      - name: id
+      - name: ID-1
         run: |
           aws sts get-caller-identity
 
@@ -85,10 +85,11 @@ jobs:
       - name: ID-2
         run: |
           aws sts get-caller-identity
-      # - name: Destroy-Resource
-      #   if: steps.cloudformation.outcome == failure
-      #   run: aws cloudformation delete-stack --stack-name ProwlerRoleStack
-      - name: Destroy Resource
-        # if: ${{ always() }}
-        run: |
-          terraform destroy --auto-approve
+
+      - name: Destroy-Resource
+        if: steps.cloudformation.outcome == failure
+        run: aws cloudformation delete-stack --stack-name ProwlerRoleStack
+      # - name: Destroy Resource
+      #   # if: ${{ always() }}
+      #   run: |
+      #     terraform destroy --auto-approve
