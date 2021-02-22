@@ -11,16 +11,24 @@ resource "aws_iam_role" "prowler_role" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = ["sts:AssumeRole","sts:TagSession"]
+        Action = ["sts:AssumeRole"]
         Effect = "Allow"
-        Sid    = ""
+        Sid    = "AllowIamUserAssumeRole"
         Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/Abayomi"
         }
-        Condition = {
-          StringLike = {
-            "aws:PrincipalArn" = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/Abayomi"
-          }
+        # Condition = {
+        #   StringLike = {
+        #     "aws:PrincipalArn" = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/Abayomi"
+        #   }
+        # }
+      },
+      {
+        Action = ["sts:TagSession"]
+        Effect = "Allow"
+        Sid    = "AllowPassSessionTags"
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/Abayomi"
         }
       }
     ]
