@@ -14,25 +14,28 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: GetCallerID-0
+        run: |
+          aws sts get-caller-identity
 
       - name: Install Requirements
         run: |
           pip install detect-secrets
           sudo apt install jq
 
-      # - name: Deploy to AWS CloudFormation
-      #   uses: aws-actions/aws-cloudformation-github-deploy@v1
-      #   with:
-      #     name: RoleStack
-      #     template: role.yaml
-      #     capabilities: CAPABILITY_NAMED_IAM
-      # parameter-overrides: "MyParam1=myValue,MyParam2=${{ secrets.MY_SECRET_VALUE }}"
+      - name: Deploy to AWS CloudFormation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: ProwlerRoleStack
+          template: prowler-role.yaml
+          capabilities: CAPABILITY_NAMED_IAM
 
       # - name: Terraform initialize
       #   id: init
@@ -46,10 +49,6 @@ jobs:
       #     terraform plan
       #     terraform apply --auto-approve
 
-      # - name: Sleep
-      #   run: |
-      #     sleep 2m
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -57,8 +56,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           role-duration-seconds: 1200
-          role-to-assume: ProwlerXA-Role
+          role-to-assume: Prowler-Role
           role-session-name: ProwlerSession
+      - name: GetCallerID-0
+        run: |
+          aws sts get-caller-identity
       # - name: Assume Role
       #   run: |
       #     aws sts assume-role --role-arn ProwlerXA-Role --role-session-name prowler
@@ -71,9 +73,6 @@ jobs:
       # - name: Assume Role
       #   run: |
       #     aws sts assume-role --role-arn ${{ secrets.AWS_ROLE_TO_ASSUME }} --role-session-name ProwlerSession
-      # - name: GetCallerID-0
-      #   run: |
-      #     aws sts get-caller-identity
       # - name: Destroy Resource
       #   run: |
       #     terraform destroy --auto-approve
