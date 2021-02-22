@@ -35,7 +35,7 @@ jobs:
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: ProwlerRoleStack
-          template: prowler-role.yaml
+          template: prowler-rolek.yaml
           capabilities: CAPABILITY_NAMED_IAM
 
       # - name: Terraform Initialize
