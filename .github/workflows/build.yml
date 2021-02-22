@@ -51,7 +51,10 @@ jobs:
           ls -al
 
       - name: List all groups
-        run: ./prowler -L
+        run: |
+          cd prowler
+          ls -al
+          # ./prowler -L
 
       # - name: List all groups v2
       #   run: |
