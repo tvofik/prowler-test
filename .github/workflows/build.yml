@@ -47,8 +47,7 @@ jobs:
       - name: Run Prowler
         run: |
           cd prowler
-          # ./prowler
-          ./prowler -c gdpr -M html
+          ./prowler -g gdpr -M html
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
@@ -62,9 +61,10 @@ jobs:
         run: |
           # pwd
           # ls -al
-          # cd prowler/output
+          cd prowler/output
           ls -al
           DATE=`date +%Y%m%d%H%M%S`
+          echo $DATE
 
       - name: List to find file LOOK
         run: |
