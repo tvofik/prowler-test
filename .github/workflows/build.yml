@@ -47,9 +47,7 @@ jobs:
       - name: Run Prowler
         run: |
           cd prowler
-          ./prowler -L
-          # ./prowler
-          ./prowler -g cislevel1
+          ./prowler -c check310
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
