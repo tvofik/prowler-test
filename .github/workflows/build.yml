@@ -11,9 +11,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -21,36 +18,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: ID-0
-        run: |
-          aws sts get-caller-identity
-
       - name: Install Requirements
         run: |
           pip install detect-secrets
           sudo apt install jq
 
-      - name: Deploy to AWS CloudFormation
-        id: cloudformation
+      - name: Deploy to Cloudformation Resource
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: ProwlerRoleStack
           template: prowler-role.yaml
           capabilities: CAPABILITY_NAMED_IAM
 
-      # - name: Terraform Initialize
-      #   id: init
-      #   run: terraform init
-      # - name: Terraform Validate
-      #   id: validate
-      #   run: terraform validate
-      # - name: Terraform Plan & Apply
-      #   id: plan
-      #   run: |
-      #     terraform plan
-      #     terraform apply --auto-approve
-
-      - name: Configure AWS Credentials
+      - name: Assume Prowler Role
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -59,14 +39,6 @@ jobs:
           role-duration-seconds: 1200
           role-to-assume: Prowler-Role
           role-session-name: ProwlerSession
-
-      - name: ID-1
-        run: |
-          aws sts get-caller-identity
-
-      - name: Sleep
-        run: |
-          sleep 2m
 
       # - name: Clone Prowler Repo
       #   run: git clone https://github.com/toniblyx/prowler
@@ -82,14 +54,27 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: ID-2
-        run: |
-          aws sts get-caller-identity
-
-      - name: Destroy-Resource
+      - name: Destroy Cloudformation Resource
         if: ${{ failure() }} ||  ${{ success() }}
         run: aws cloudformation delete-stack --stack-name ProwlerRoleStack
-      # - name: Destroy Resource
-      #   # if: ${{ always() }}
-      #   run: |
-      #     terraform destroy --auto-approve
+  # Terraform:
+  #   name: Prowler
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Setup Terraform
+  #       uses: hashicorp/setup-terraform@v1
+  #     - name: Terraform Initialize
+  #       id: init
+  #       run: terraform init
+  #     - name: Terraform Validate
+  #       id: validate
+  #       run: terraform validate
+  #     - name: Terraform Plan & Apply
+  #       id: plan
+  #       run: |
+  #         terraform plan
+  #         terraform apply --auto-approve
+  #     - name: Destroy Resource
+  #       if: ${{ always() }}
+  #       run: |
+  #         terraform destroy --auto-approve
