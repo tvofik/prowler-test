@@ -87,11 +87,9 @@ jobs:
           aws sts get-caller-identity
 
       - name: Destroy-Resource
-        if: steps.cloudformation.outcome == 'failure'
+        if: ${{ failure() }}
         run: aws cloudformation delete-stack --stack-name ProwlerRoleStack
       # - name: Destroy Resource
       #   # if: ${{ always() }}
       #   run: |
       #     terraform destroy --auto-approve
-    outputs:
-      output1: ${{ steps.cloudformation.outputs.test }}
