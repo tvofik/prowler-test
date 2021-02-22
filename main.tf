@@ -5,7 +5,7 @@ provider "aws" {
 data "aws_caller_identity" "current" {}
 
 resource "aws_iam_role" "prowler_role" {
-  name = "ProwlerRole"
+  name = "Prowler-Role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -80,21 +80,21 @@ resource "aws_iam_role_policy" "prowler-additions-policy" {
 if you want porwler to send findings to AWS SECUIRTY HUB
 prowler-security-hub
 */
-resource "aws_iam_role_policy" "prowler-security-policy" {
-  name = "ProwlerSecurityHubPolicy"
-  role = aws_iam_role.prowler_role.name
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "securityhub:BatchImportFindings",
-          "securityhub:GetFindings"
-        ]
-        Effect   = "Allow",
-        Resource = "*"
-        Sid      = "AllowSecuirtyHubForProwler"
-      }
-    ]
-  })
-}
+# resource "aws_iam_role_policy" "prowler-security-policy" {
+#   name = "ProwlerSecurityHubPolicy"
+#   role = aws_iam_role.prowler_role.name
+#   policy = jsonencode({
+#     Version = "2012-10-17"
+#     Statement = [
+#       {
+#         Action = [
+#           "securityhub:BatchImportFindings",
+#           "securityhub:GetFindings"
+#         ]
+#         Effect   = "Allow",
+#         Resource = "*"
+#         Sid      = "AllowSecuirtyHubForProwler"
+#       }
+#     ]
+#   })
+# }

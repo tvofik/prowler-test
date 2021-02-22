@@ -1,4 +1,4 @@
-name: "Terraform"
+name: "Prowler Deployment"
 
 on: [push]
 
@@ -30,24 +30,24 @@ jobs:
           pip install detect-secrets
           sudo apt install jq
 
-      - name: Deploy to AWS CloudFormation
-        uses: aws-actions/aws-cloudformation-github-deploy@v1
-        with:
-          name: ProwlerRoleStack
-          template: prowler-role.yaml
-          capabilities: CAPABILITY_NAMED_IAM
+      # - name: Deploy to AWS CloudFormation
+      #   uses: aws-actions/aws-cloudformation-github-deploy@v1
+      #   with:
+      #     name: ProwlerRoleStack
+      #     template: prowler-role.yaml
+      #     capabilities: CAPABILITY_NAMED_IAM
 
-      # - name: Terraform initialize
-      #   id: init
-      #   run: terraform init
-      # - name: Terraform Validate
-      #   id: validate
-      #   run: terraform validate
-      # - name: Terraform Plan & Apply
-      #   id: plan
-      #   run: |
-      #     terraform plan
-      #     terraform apply --auto-approve
+      - name: Terraform initialize
+        id: init
+        run: terraform init
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
+      - name: Terraform Plan & Apply
+        id: plan
+        run: |
+          terraform plan
+          terraform apply --auto-approve
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -58,21 +58,18 @@ jobs:
           role-duration-seconds: 1200
           role-to-assume: Prowler-Role
           role-session-name: ProwlerSession
+
       - name: GetCallerID-0
         run: |
           aws sts get-caller-identity
-      # - name: Assume Role
-      #   run: |
-      #     aws sts assume-role --role-arn ProwlerXA-Role --role-session-name prowler
+
       # - name: Clone Prowler Repo
       #   run: git clone https://github.com/toniblyx/prowler
       # - name: Change Directory
       #   run: |
       #     cd prowler
       #     ls -al
-      # - name: Assume Role
-      #   run: |
-      #     aws sts assume-role --role-arn ${{ secrets.AWS_ROLE_TO_ASSUME }} --role-session-name ProwlerSession
-      # - name: Destroy Resource
-      #   run: |
-      #     terraform destroy --auto-approve
+
+      - name: Destroy Resource
+        run: |
+          terraform destroy --auto-approve
