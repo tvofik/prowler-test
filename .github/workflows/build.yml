@@ -31,6 +31,7 @@ jobs:
           sudo apt install jq
 
       - name: Deploy to AWS CloudFormation
+        id: cloudformation
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: ProwlerRoleStack
@@ -81,7 +82,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Destroy Resource
-        # if: ${{ always() }}
-        run: |
-          terraform destroy --auto-approve
+      - name: Destroy-Resource
+        run: aws cloudformation delete-stack --stack-name ProwlerRoleStack
+      # - name: Destroy Resource
+      #   # if: ${{ always() }}
+      #   run: |
+      #     terraform destroy --auto-approve
