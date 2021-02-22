@@ -43,25 +43,12 @@ jobs:
       - name: Clone Prowler Repo
         run: |
           git clone https://github.com/toniblyx/prowler
-          ls -al
 
-      - name: Change Directory
+      - name: Run Prowler
         run: |
-          pwd
-          cd prowler
-          ls -al
-
-      - name: List all groups
-        run: |
-          pwd
           cd prowler
           ./prowler -L
-
-      - name: List all groups v2
-        run: |
-          pwd
-          cd prowler
-          ./prowler -l -g
+          ./prowler
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
@@ -72,7 +59,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Destroy Cloudformation Resource
-        if: ${{ failure() }} ||  ${{ success() }}
+        if: ${{ failure() }} || ${{ success() }}
         run: aws cloudformation delete-stack --stack-name ProwlerRoleStack
   # Terraform:
   #   name: Prowler
