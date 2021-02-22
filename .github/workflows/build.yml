@@ -47,7 +47,8 @@ jobs:
       - name: Run Prowler
         run: |
           cd prowler
-          ./prowler -c check310
+          # ./prowler
+          ./prowler -c gdpr -M html
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
@@ -59,10 +60,15 @@ jobs:
 
       - name: List to find file
         run: |
-          pwd
+          # pwd
+          # ls -al
+          # cd prowler/output
           ls -al
-          cd prowler
-          ls -al
+          DATE=`date +%Y%m%d%H%M%S`
+
+      - name: List to find file LOOK
+        run: |
+          echo $DATE
 
       - name: Destroy Cloudformation Resource
         if: ${{ failure() }} || ${{ success() }}
