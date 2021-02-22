@@ -74,24 +74,3 @@ jobs:
       - name: Destroy Cloudformation Resource
         if: ${{ failure() }} || ${{ success() }}
         run: aws cloudformation delete-stack --stack-name ProwlerRoleStack
-  # Terraform:
-  #   name: Prowler
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Setup Terraform
-  #       uses: hashicorp/setup-terraform@v1
-  #     - name: Terraform Initialize
-  #       id: init
-  #       run: terraform init
-  #     - name: Terraform Validate
-  #       id: validate
-  #       run: terraform validate
-  #     - name: Terraform Plan & Apply
-  #       id: plan
-  #       run: |
-  #         terraform plan
-  #         terraform apply --auto-approve
-  #     - name: Destroy Resource
-  #       if: ${{ always() }}
-  #       run: |
-  #         terraform destroy --auto-approve
