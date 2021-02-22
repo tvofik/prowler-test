@@ -53,8 +53,7 @@ jobs:
       - name: List all groups
         run: |
           cd prowler
-          ls -al
-          # ./prowler -L
+          ./prowler -L
 
       # - name: List all groups v2
       #   run: |
