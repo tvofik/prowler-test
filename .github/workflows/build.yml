@@ -93,3 +93,5 @@ jobs:
       #   # if: ${{ always() }}
       #   run: |
       #     terraform destroy --auto-approve
+    outputs:
+      output1: ${{ steps.cloudformation.outputs.test }}
