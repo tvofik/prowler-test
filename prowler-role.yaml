@@ -1,5 +1,9 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: IAM Prowler Role
+Parameters:
+  Username:
+    Type: String
+    Default: Abayomi
 Resources:
   ProwlerRole:
     Type: "AWS::IAM::Role"
@@ -20,7 +24,7 @@ Resources:
               - "sts:TagSession"
             Condition:
               StringLike:
-                "aws:PrincipalArn": !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:user/Abayomi"
+                "aws:PrincipalArn": !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:user/${username}"
       ManagedPolicyArns:
         - !Sub "arn:${AWS::Partition}:iam::aws:policy/SecurityAudit"
         - !Sub "arn:${AWS::Partition}:iam::aws:policy/job-function/ViewOnlyAccess"
