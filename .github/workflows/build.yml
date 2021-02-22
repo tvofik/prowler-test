@@ -30,24 +30,24 @@ jobs:
           pip install detect-secrets
           sudo apt install jq
 
-      # - name: Deploy to AWS CloudFormation
-      #   uses: aws-actions/aws-cloudformation-github-deploy@v1
-      #   with:
-      #     name: ProwlerRoleStack
-      #     template: prowler-role.yaml
-      #     capabilities: CAPABILITY_NAMED_IAM
+      - name: Deploy to AWS CloudFormation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: ProwlerRoleStack
+          template: prowler-role.yaml
+          capabilities: CAPABILITY_NAMED_IAM
 
-      - name: Terraform initialize
-        id: init
-        run: terraform init
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate
-      - name: Terraform Plan & Apply
-        id: plan
-        run: |
-          terraform plan
-          terraform apply --auto-approve
+      # - name: Terraform Initialize
+      #   id: init
+      #   run: terraform init
+      # - name: Terraform Validate
+      #   id: validate
+      #   run: terraform validate
+      # - name: Terraform Plan & Apply
+      #   id: plan
+      #   run: |
+      #     terraform plan
+      #     terraform apply --auto-approve
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
