@@ -47,7 +47,7 @@ jobs:
       - name: Run Prowler
         run: |
           cd prowler
-          ./prowler -g gdpr -M html
+          ./prowler -g group1 -M html
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
