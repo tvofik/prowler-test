@@ -55,9 +55,10 @@ jobs:
           cd prowler
           ./prowler -L
 
-      # - name: List all groups v2
-      #   run: |
-      #     ./prowler -l -g
+      - name: List all groups v2
+        run: |
+          cd prowler
+          ./prowler -l -g
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
