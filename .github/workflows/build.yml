@@ -47,16 +47,19 @@ jobs:
 
       - name: Change Directory
         run: |
+          pwd
           cd prowler
           ls -al
 
       - name: List all groups
         run: |
+          pwd
           cd prowler
           ./prowler -L
 
       - name: List all groups v2
         run: |
+          pwd
           cd prowler
           ./prowler -l -g
 
