@@ -41,7 +41,9 @@ jobs:
           sudo apt install jq
 
       - name: Clone Prowler Repo
-        run: git clone https://github.com/toniblyx/prowler
+        run: |
+          git clone https://github.com/toniblyx/prowler
+          ls -al
 
       - name: Change Directory
         run: |
@@ -49,14 +51,14 @@ jobs:
           ls -al
 
       - name: List all groups
-        run: |
-          ./prowler -L
+        run: ./prowler -L
 
-      - name: List all groups v2
-        run: |
-          ./prowler -l -g
+      # - name: List all groups v2
+      #   run: |
+      #     ./prowler -l -g
 
       - name: Configure AWS credentials
+        if: ${{ failure() }} || ${{ success() }}
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
