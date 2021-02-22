@@ -18,11 +18,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Install Requirements
-        run: |
-          pip install detect-secrets
-          sudo apt install jq
-
       - name: Deploy to Cloudformation Resource
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
@@ -36,16 +31,30 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-          role-duration-seconds: 1200
+          role-duration-seconds: 1800
           role-to-assume: Prowler-Role
           role-session-name: ProwlerSession
 
-      # - name: Clone Prowler Repo
-      #   run: git clone https://github.com/toniblyx/prowler
-      # - name: Change Directory
-      #   run: |
-      #     cd prowler
-      #     ls -al
+      - name: Install Requirements
+        run: |
+          pip install detect-secrets
+          sudo apt install jq
+
+      - name: Clone Prowler Repo
+        run: git clone https://github.com/toniblyx/prowler
+
+      - name: Change Directory
+        run: |
+          cd prowler
+          ls -al
+
+      - name: List all groups
+        run: |
+          ./prowler -L
+
+      - name: List all groups v2
+        run: |
+          ./prowler -l -g
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
