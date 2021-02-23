@@ -3,7 +3,7 @@ Description: IAM Prowler Role
 Parameters:
   Username:
     Type: String
-    Default: Abayomi
+    Default: prowler
 Resources:
   ProwlerRole:
     Type: "AWS::IAM::Role"
