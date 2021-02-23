@@ -4,7 +4,7 @@ on: [push]
 
 defaults:
   run:
-    shell: /usr/bin/bash
+    shell: sh
 
 jobs:
   deploy:
