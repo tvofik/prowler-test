@@ -59,4 +59,3 @@ Resources:
                   - "states:ListActivities"
                   - "support:Describe*"
                   - "tag:GetTagKeys"
-                  - ""
