@@ -66,6 +66,6 @@ jobs:
           DATE=`date +%Y%m%d%H%M%S`
           echo $DATE
 
-      - name: Destroy Cloudformation Resource
+      - name: Delete Cloudformation stack
         if: ${{ failure() }} || ${{ success() }}
         run: aws cloudformation delete-stack --stack-name ProwlerRoleStack
