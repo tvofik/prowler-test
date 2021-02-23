@@ -49,7 +49,7 @@ jobs:
         working-directory: prowler
         run: |
           pwd
-          ./prowler -g group1 > prowler-report.html
+          # ./prowler -g group1 > prowler-report.html
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
