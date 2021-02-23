@@ -71,10 +71,6 @@ jobs:
           DATE=`date +%Y%m%d%H%M%S`
           echo $DATE
 
-      - name: List to find file LOOK
-        run: |
-          echo $DATE
-
       - name: Destroy Cloudformation Resource
         if: ${{ failure() }} || ${{ success() }}
         run: aws cloudformation delete-stack --stack-name ProwlerRoleStack
