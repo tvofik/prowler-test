@@ -26,7 +26,7 @@ jobs:
       - name: Deploy to Cloudformation Resource
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
-          name: ProwlerRoleStack
+          name: ProwlerRoleStacki
           template: prowler-role.yaml
           capabilities: CAPABILITY_NAMED_IAM
 
