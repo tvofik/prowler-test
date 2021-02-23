@@ -47,7 +47,7 @@ jobs:
       - name: Run Prowler
         run: |
           cd prowler
-          ./prowler -g group1 -M html
+          ./prowler -g group1
           ls -l
 
       - name: Configure AWS credentials
