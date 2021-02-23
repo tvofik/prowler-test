@@ -62,7 +62,7 @@ jobs:
         run: |
           # pwd
           # ls -al
-          ls -al
+          # ls -al
           DATE=`date +%Y%m%d%H%M%S`
           echo $DATE
 
