@@ -45,6 +45,7 @@ jobs:
           git clone https://github.com/toniblyx/prowler
 
       - name: Run Prowler
+        continue-on-error: true
         run: |
           cd prowler
           ./prowler -g group1
