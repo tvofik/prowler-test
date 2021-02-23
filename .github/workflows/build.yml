@@ -48,7 +48,7 @@ jobs:
         # continue-on-error: true
         working-directory: prowler
         run: |
-          # cd prowler
+          pwd
           ./prowler -g group1 > prowler-report.html
 
       - name: Configure AWS credentials
