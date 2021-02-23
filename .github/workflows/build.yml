@@ -4,7 +4,7 @@ on: [push]
 
 defaults:
   run:
-    shell: bash
+    shell: /usr/bin/bash
 
 jobs:
   deploy:
@@ -50,7 +50,7 @@ jobs:
 
       - name: Run Prowler
         # continue-on-error: true
-        working-directory: prowler
+        working-directory: ./prowler
         run: |
           ./prowler -g group1 > prowler-report.html
 
