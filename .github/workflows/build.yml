@@ -2,15 +2,10 @@ name: "Prowler Deployment"
 
 on: [push]
 
-defaults:
-  run:
-    shell: sh
-
 jobs:
   deploy:
     name: Prowler
-    runs-on: ubuntu-16.04
-    # runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -27,7 +22,7 @@ jobs:
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: ProwlerRoleStack
-          template: prowler-role.yaml
+          template: prowler-role.yml
           capabilities: CAPABILITY_NAMED_IAM
 
       - name: Assume Prowler Role
@@ -53,7 +48,7 @@ jobs:
         # continue-on-error: true
         working-directory: ./prowler
         run: |
-          ./prowler -g group1 > prowler-report.html
+          ./prowler -g group1
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
@@ -67,7 +62,6 @@ jobs:
         run: |
           # pwd
           # ls -al
-          cd prowler/output
           ls -al
           DATE=`date +%Y%m%d%H%M%S`
           echo $DATE
