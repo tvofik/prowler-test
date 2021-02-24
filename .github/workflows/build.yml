@@ -45,10 +45,10 @@ jobs:
           git clone https://github.com/toniblyx/prowler
 
       - name: Run Prowler
-        shell: bash {0}
+        shell: bash -x {0}
         working-directory: prowler
         run: |
-          ./prowler
+          ./prowler -g group4
           # echo $?
           # ls
 
