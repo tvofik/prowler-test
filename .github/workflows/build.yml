@@ -48,7 +48,7 @@ jobs:
         shell: bash {0}
         working-directory: prowler
         run: |
-          ./prowler -g group4
+          ./prowler
           # echo $?
           # ls
 
