@@ -46,9 +46,10 @@ jobs:
 
       - name: Run Prowler
         # continue-on-error: true
+        shell: bash {0}
         working-directory: prowler
         run: |
-          ./prowler -g group1 > log.txt 2>&1
+          ./prowler -g group1
           echo $?
           ls
 
@@ -61,7 +62,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Send Report to S3
-        working-directory: ./prowler/output
+        # working-directory: ./prowler/output
         run: |
           pwd
           ls -al
