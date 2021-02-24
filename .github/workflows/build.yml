@@ -49,9 +49,7 @@ jobs:
         # shell: bash {0}
         working-directory: prowler
         run: |
-          SCAN_RESULT=$(./prowler -g group4 && echo OK || echo FAILED)
-          echo $SCAN_RESULT
-          # ./prowler -g group4
+          ./prowler -g group4
           # echo $?
           # ls
 
