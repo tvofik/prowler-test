@@ -48,9 +48,7 @@ jobs:
         working-directory: prowler
         continue-on-error: true
         run: |
-          # ./prowler -g group4
-          # echo $?
-          # ls
+          ./prowler -M html
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
