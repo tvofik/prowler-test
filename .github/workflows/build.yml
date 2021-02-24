@@ -45,10 +45,9 @@ jobs:
           git clone https://github.com/toniblyx/prowler
 
       - name: Run Prowler
-        shell: bash -x {0}
         working-directory: prowler
+        continue-on-error: true
         run: |
-          SCAN_RESULT=$(./prowler -g group4 && echo OK || echo FAILED)
           # ./prowler -g group4
           # echo $?
           # ls
