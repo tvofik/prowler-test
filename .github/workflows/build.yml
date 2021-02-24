@@ -45,10 +45,10 @@ jobs:
           git clone https://github.com/toniblyx/prowler
 
       - name: Run Prowler
-        # continue-on-error: true
+        continue-on-error: true
         working-directory: ./prowler
         run: |
-          ./prowler -g group1
+          ./prowler -g group1 > prowler-report.html
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
@@ -57,6 +57,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
+      - name: Send Report to S3
+        working-directory: ./prowler/output
+        run: |
+          pwd
+          ls -al
 
       - name: List to find file
         run: |
