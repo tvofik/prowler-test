@@ -45,10 +45,10 @@ jobs:
           git clone https://github.com/toniblyx/prowler
 
       - name: Run Prowler
-        continue-on-error: true
+        # continue-on-error: true
         working-directory: prowler
         run: |
-          ./prowler -g group1
+          ./prowler -g group1 || pass
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
