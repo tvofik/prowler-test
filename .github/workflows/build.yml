@@ -3,7 +3,7 @@ name: "Prowler Deployment"
 on:
   push:
     branches:
-      # - main
+      - main
       - dev-prowler
 
 jobs:
