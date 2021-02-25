@@ -39,8 +39,10 @@ jobs:
         run: |
           pip install detect-secrets
           sudo apt install jq
-          PATH=$PATH:/home/runner/.local/bin
-          echo PATH=$PATH
+          GITHUB_ENV=$GITHUB_ENV:/home/runner/.local/bin
+          echo $GITHUB_ENV
+          # PATH=$PATH:/home/runner/.local/bin
+          # echo PATH=$PATH
           detect-secrets scan --help
 
       - name: Clone Prowler Repo
