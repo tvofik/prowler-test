@@ -51,13 +51,9 @@ jobs:
 
       - name: Run Prowler
         working-directory: prowler
-        shell: bash {0}
         continue-on-error: true
         run: |
-          # ./prowler -g group4 -M html
-          # detect-secrets scan --help
-          # ./prowler -g group4 -M mono
-          ./prowler -g group4 -M mono | aws s3 cp - s3://klean901/prowler-report.txt
+          ./prowler -g group4 -M html
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
@@ -67,12 +63,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # - name: Send Report to S3
-      #   working-directory: prowler/output
-      #   run: |
-      #     # aws s3 cp prowler-output* s3://klean901/
-      #     # pwd
-      #     ls -al
+      - name: Send Report to S3
+        working-directory: prowler/output
+        run: |
+          ls -al
+          aws s3 cp prowler-output* s3://klean901/
 
       # - name: List to find file
       #   run: |
