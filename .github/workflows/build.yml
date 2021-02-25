@@ -61,16 +61,17 @@ jobs:
       - name: Send Report to S3
         working-directory: prowler/output
         run: |
+          aws s3 cp . s3://klean901/prowler-report.html
           pwd
           ls -al
 
-      - name: List to find file
-        run: |
-          # pwd
-          # ls -al
-          # ls -al
-          DATE=`date +%Y%m%d%H%M%S`
-          echo $DATE
+      # - name: List to find file
+      #   run: |
+      #     # pwd
+      #     # ls -al
+      #     # ls -al
+      #     DATE=`date +%Y%m%d%H%M%S`
+      #     echo $DATE
 
       - name: Delete Cloudformation stack
         if: ${{ failure() }} || ${{ success() }}
