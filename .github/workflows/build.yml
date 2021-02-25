@@ -65,8 +65,12 @@ jobs:
         working-directory: prowler/output
         run: |
           # aws s3 cp prowler-output* s3://klean901/
-          pwd
+          # pwd
           ls -al
+
+      - name: Send Report to S3
+        run: |
+          find . -name detect-secrets 2>/dev/null
 
       # - name: List to find file
       #   run: |
