@@ -39,7 +39,7 @@ jobs:
         run: |
           pip install detect-secrets
           sudo apt install jq
-          echo $PATH
+          PATH=$PATH:/home/runner/.local/bin/
 
       - name: Clone Prowler Repo
         run: |
