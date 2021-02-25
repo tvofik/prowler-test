@@ -67,10 +67,11 @@ jobs:
       #     # aws s3 cp prowler-output* s3://klean901/
       #     # pwd
       #     ls -al
+      # .local/bin
 
       - name: find detect
         run: |
-          find / -name detect-secrets
+          sudo find /home -name detect-secrets
       # - name: List to find file
       #   run: |
       #     # pwd
