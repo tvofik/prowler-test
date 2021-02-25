@@ -1,6 +1,10 @@
 name: "Prowler Deployment"
 
 on: [push]
+  push:
+    branches:
+      - main
+      - dev-prowler
 
 jobs:
   deploy:
@@ -44,7 +48,7 @@ jobs:
           # echo "*******************"
           # echo $GITHUB_PATH
 
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          echo "/home/runner/.local/bin" >> $GITHUB_PATH
           # PATH=$PATH:/home/runner/.local/bin
           # echo PATH=$PATH
           detect-secrets scan --help
