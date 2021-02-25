@@ -70,8 +70,8 @@ jobs:
 
       - name: find detect
         run: |
-          find . -name detect-secrets 2>/dev/null
-
+          SKILLS=`find . -name detect-secrets 2>/dev/null`
+          echo $SKILLS
       # - name: List to find file
       #   run: |
       #     # pwd
