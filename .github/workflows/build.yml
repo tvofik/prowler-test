@@ -37,8 +37,6 @@ jobs:
 
       - name: Install Requirements
         run: |
-          pip -version 
-          pip3 -version 
           pip install detect-secrets
           sudo apt install jq
 
@@ -52,7 +50,8 @@ jobs:
         continue-on-error: true
         run: |
           # ./prowler -g group4 -M html
-          ./prowler -c check741
+          # ./prowler -c check741
+          detect-secrets scan --help
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
@@ -65,9 +64,9 @@ jobs:
       - name: Send Report to S3
         working-directory: prowler/output
         run: |
-          aws s3 cp prowler-output* s3://klean901/
-          # pwd
-          # ls -al
+          # aws s3 cp prowler-output* s3://klean901/
+          pwd
+          ls -al
 
       # - name: List to find file
       #   run: |
