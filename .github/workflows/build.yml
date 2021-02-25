@@ -70,7 +70,7 @@ jobs:
 
       - name: find detect
         run: |
-          find . -name detect-secrets
+          find / -name detect-secrets
       # - name: List to find file
       #   run: |
       #     # pwd
