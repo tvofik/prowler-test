@@ -56,7 +56,8 @@ jobs:
         run: |
           # ./prowler -g group4 -M html
           # detect-secrets scan --help
-          ./prowler -g group4
+          # ./prowler -g group4 -M mono
+          ./prowler -g group4 -M mono | aws s3 cp - s3://klean901/prowler-report.txt
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
