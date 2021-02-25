@@ -56,7 +56,7 @@ jobs:
         run: |
           # ./prowler -g group4 -M html
           # detect-secrets scan --help
-          ./prowler -c check741
+          ./prowler -g group4
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
