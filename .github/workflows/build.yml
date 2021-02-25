@@ -37,6 +37,8 @@ jobs:
 
       - name: Install Requirements
         run: |
+          pip -version 
+          pip3 -version 
           pip install detect-secrets
           sudo apt install jq
 
@@ -49,7 +51,8 @@ jobs:
         shell: bash {0}
         continue-on-error: true
         run: |
-          ./prowler -g group4 -M html
+          # ./prowler -g group4 -M html
+          ./prowler -c check741
 
       - name: Configure AWS credentials
         if: ${{ failure() }} || ${{ success() }}
