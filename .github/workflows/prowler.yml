@@ -66,7 +66,7 @@ jobs:
       - name: Send Report to S3
         working-directory: prowler/output
         run: |
-          ls -al
+          # ls -al
           aws s3 cp prowler-output* s3://klean901/
 
       # - name: List to find file
