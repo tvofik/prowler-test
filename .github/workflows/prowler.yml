@@ -29,15 +29,15 @@ jobs:
       #     template: tools/prowler/prowler-role.yml
       #     capabilities: CAPABILITY_NAMED_IAM
 
-      - name: Assume Prowler Role
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-          role-duration-seconds: 10800
-          role-to-assume: Prowler-Role
-          role-session-name: ProwlerSession
+      # - name: Assume Prowler Role
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
+      #     role-duration-seconds: 10800
+      #     role-to-assume: Prowler-Role
+      #     role-session-name: ProwlerSession
 
       - name: Install Requirements
         run: |
