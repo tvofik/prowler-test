@@ -57,7 +57,12 @@ jobs:
 
       - name: Get File location
         run: |
-          ls -al
+          echo "***********"
+          ls -al tools
+          echo "***********"
+          ls -al tools/prowler/prowler
+          echo "***********"
+          ls -al tools/prowler
 
       # - name: Run Prowler
       #   working-directory: prowler
