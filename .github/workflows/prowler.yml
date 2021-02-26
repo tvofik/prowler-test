@@ -26,7 +26,7 @@ jobs:
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: ProwlerRoleStack
-          template: hello/test/prowler-role.yml
+          template: tools/prowler/prowler-role.yml
           capabilities: CAPABILITY_NAMED_IAM
 
       - name: Assume Prowler Role
