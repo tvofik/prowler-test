@@ -57,6 +57,7 @@ jobs:
 
       - name: Get File location
         run: |
+          ls -al
           echo "***********"
           ls -al tools
           echo "***********"
