@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: tvofik/prowler-test
+          repository: tvofik/prowler-test/tools
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
