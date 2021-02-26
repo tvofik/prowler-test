@@ -63,19 +63,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Send Report to S3
-        working-directory: prowler/output
-        run: |
-          # ls -al
-          aws s3 cp prowler-output* s3://klean901/
-
-      # - name: List to find file
+      # - name: Send Report to S3
+      #   working-directory: prowler/output
       #   run: |
-      #     # pwd
       #     # ls -al
-      #     # ls -al
-      #     DATE=`date +%Y%m%d%H%M%S`
-      #     echo $DATE
+      #     aws s3 cp prowler-output* s3://klean901/
 
       - name: Delete Cloudformation stack
         if: ${{ failure() }} || ${{ success() }}
